@@ -78,7 +78,15 @@ TEMPLATES = [
 CSRF_TRUSTED_ORIGINS = [
     "https://geo-location-0s3j.onrender.com",
 ]
+# JWT SETTINGS
+from datetime import timedelta
 
+SIMPLE_JWT = {
+     'ACCESS_TOKEN_LIFETIME': timedelta(hours=3650),   # curto, 1 hora
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=3650), # longo, 30 dias
+    'ROTATE_REFRESH_TOKENS': False,                # gera novo refresh token a cada uso
+    'BLACKLIST_AFTER_ROTATION': False,
+}
 # URLS
 ROOT_URLCONF = 'core.urls'
 

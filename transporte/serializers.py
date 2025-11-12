@@ -18,7 +18,13 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email']
 
 class MotoristaSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    STATUS_CHOICES = [
+        ('ativo', 'Ativo'),
+        ('inativo', 'Inativo'),
+        ('suspenso', 'Suspenso'),
+    ]
+    status = serializers.ChoiceField(choices=STATUS_CHOICES)
+
     class Meta:
         model = Motorista
         fields = '__all__'
