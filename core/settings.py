@@ -75,6 +75,10 @@ TEMPLATES = [
     },
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://geo-location-0s3j.onrender.com",
+]
+
 # URLS
 ROOT_URLCONF = 'core.urls'
 
