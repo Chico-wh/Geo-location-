@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import RegisterMotoristaSerializer, MotoristaProfileSerializer
@@ -33,3 +33,12 @@ class MotoristaProfileView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return Motorista.objects.get(user=self.request.user)
+
+    def patch(self, request, *args, **kwargs):
+        motorista = self.get_object()
+        novo_status = request.data.get('status')
+        if novo_status:
+            motorista.status = novo_status
+            motorista.save()
+            return Response({'status': 'ok', 'novo_status': motorista.status})
+        return Response({'error': 'status não informado'}, status=status.HTTP_400_BAD_REQUEST)
